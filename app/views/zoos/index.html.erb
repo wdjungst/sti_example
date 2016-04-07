@@ -1,0 +1,19 @@
+<h1>Zoos</h1>
+<hr />
+<% if @zoos.any? %>
+  <ul>
+    <% @zoos.each do |zoo| %>
+      <li>
+        <%= link_to zoo.name.titleize, sti_animal_path(zoo) %>
+        |
+        <%= link_to 'Edit', edit_zoo_path(zoo) %>
+        |
+        <%= link_to 'Delete', zoo_path(zoo), method: :delete, data: {confirm: 'Really Delete?'} %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+ <h3>No Zoos</h3>
+<% end %>
+<br />
+<%= link_to 'Create New Zoo', new_zoo_path %>

@@ -1,0 +1,33 @@
+<%= form_for [@zoo, @animal] do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <br />
+    <%= f.text_field :name, required: :true %>
+    <br />
+  </div>
+
+  <div class="field">
+    <%= f.label :race %>
+    <br />
+    <% if  @race != "Animal" %>
+      <p><%= @race %></p>
+      <%= f.hidden_field :race %>
+    <% else %>
+      <%= f.select :race, Animal.races %>
+    <% end %>
+    <br />
+  </div>
+
+  <div class="field">
+    <%= f.label :age %>
+    <br />
+    <%= f.text_field :age %>
+    <br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', sti_animal_path(@zoo) %>

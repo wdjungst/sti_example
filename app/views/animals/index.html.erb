@@ -1,0 +1,55 @@
+<h1>
+  Viewing All <%= @race.pluralize %> In Zoo: <%= @zoo.name %>
+</h1>
+<% if @animals.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Race</th>
+        <th>Age</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @animals.each do |animal| %>
+        <tr>
+          <td>
+            <%= animal.name %>
+          </td>
+          <td>
+            <%= animal.race %>
+          </td>
+          <td>
+            <%= animal.age %>
+          </td>
+          <% unless params[:type] %>
+            <td>
+              <%= link_to "See all #{animal.race.pluralize}", sti_animal_path(@zoo, animal.race) %>
+            </td>
+          <% end %>
+          <td>
+            <%= link_to 'Show', sti_animal_path(@zoo, animal.race, animal) %>
+          </td>
+          <td>
+            <%= link_to 'Edit', sti_animal_path(@zoo, animal.race, animal, :edit) %>
+          </td>
+          <td>
+            <%= link_to 'Destroy', sti_animal_path(@zoo, animal.race, animal), method: :delete, data: {confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>No Zoo Animals To Display</h3>
+<% end %>
+<%= link_to "New #{@race}", sti_animal_path(@zoo, @race, nil, :new) %>
+<br/>
+<% if params[:type] %>
+  <%= link_to 'See all zoo animals', sti_animal_path(@zoo) %>
+<% end %>
+<hr/>
+<%= link_to 'All Zoos', zoos_path %>
